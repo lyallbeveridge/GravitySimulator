@@ -37,7 +37,7 @@ float dist;                      // Distance between mouse
 void mouseMoved(){
   // Checks whether the distance between the mouse and the point is below threshold
   dist = dist(mouseX, mouseY, circleX, circleY);
-  
+  println("user moving; circleX", circleX, "circleY", circleY);
   if (dist < circleSize) {
     draggable = true;
     background(0, 255, 0);      // Green background    
@@ -55,6 +55,11 @@ void mouseDragged() {
   println("user dragging; draggable =", draggable);
   if(draggable) {
     // Set the circle to the mouse pointer
-    ellipse(mouseX, mouseY, circleSize, circleSize);
+    background(0, 255, 0);      // Green background
+    
+    // Keep the circle there
+    circleX = mouseX;
+    circleY = mouseY;
+    ellipse(circleX, circleY, circleSize, circleSize);
   }
 }
