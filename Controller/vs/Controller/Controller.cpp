@@ -76,7 +76,7 @@ int main()
 	// --- Create the UDP
 	
 	// UDP port number of the remote host
-	int PortNumber = 25000;
+	int PortNumber = 6000;
 	// Reference to UDP Client
 	UdpClient^ Client;
 	// Toggling write buffer
@@ -127,6 +127,7 @@ int main()
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 
+		// Send a demo UDP message
 		try
 		{
 			//send the bytes

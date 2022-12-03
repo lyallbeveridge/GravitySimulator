@@ -3,6 +3,9 @@
 // 21/11/2018
 // Lyall Beveridge
 
+import hypermedia.net.*;       // UDP Library?
+UDP udp;
+
 int fallDist;                  // The height between the ball and the ground
 
 int circleSize = 50;           // The dimensions of the circle
@@ -32,10 +35,29 @@ void setup() {
   ellipseMode(CENTER);         // Draw a circle to begin with
   fill(255);
   ellipse(circleX, circleY, circleSize, circleSize);
-  
- // Let the user know that it's working
- println("The program has started");
  
+  // UDP Setup
+  udp = new UDP(this, 6000);
+  udp.listen( true );
+  
+  
+  // Let the user know that it's working
+  println("The program has started");
+ 
+}
+
+
+// This function will receive the UDP datagrams
+void receive( byte[] data, String ip, int port ) {  // <-- extended handler
+  
+  
+  // get the "real" message =
+  // forget the ";\n" at the end <-- !!! only for a communication with Pd !!!
+  data = subset(data, 0, data.length-2);
+  String message = new String( data );
+  
+  // print the result
+  println( "receive: \""+message+"\" from "+ip+" on port "+port );
 }
 
 
