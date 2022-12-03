@@ -49,21 +49,30 @@ void setup() {
 
 // This function will receive the UDP datagrams
 void receive( byte[] data, String ip, int port ) {  // <-- extended handler
-  
-  
-  // get the "real" message =
-  // forget the ";\n" at the end <-- !!! only for a communication with Pd !!!
+
   data = subset(data, 0, data.length-2);
   String message = new String( data );
+  //println( "receive: \""+message+"\" from "+ip+" on port "+port );
+  println(message);
   
-  // print the result
-  println( "receive: \""+message+"\" from "+ip+" on port "+port );
+  // Switch depending on the buttons
+  switch(message) {  
+    case "2": 
+      velocity += 15;
+      println("Received upwards command");
+      break;
+    default:
+      break;
+  }
 }
 
 
 void draw() {
   // If the ball being clicked or dragged (i.e. the mouse isn't pressed whilst the cursor is on the ball)
-  if ((!draggable || mouseButton != LEFT) && circleY != grounded) acceleration();
+  if (!draggable && mouseButton != LEFT) 
+  {
+    acceleration();
+  }
   
   // Drawing code
   background(0, 255, 0);      // Green background 
@@ -109,10 +118,11 @@ void acceleration() {
     velocity += accelerationConst;           // Calculate the velocity based on the last 
     
     // Make the ball fall with a constant velocity towards the ground
-    if (fallDist <= velocity + (circleSize/2)) {
+    if (fallDist <= velocity + (circleSize/2)) 
+    {
       circleY = grounded;                    // Then move it to 0
       velocity *= elasticityConst;           // Reset the velocity to 0
-      // Determine whether to bounce or not
     }
+    
     circleY += velocity;                     // Move downwards
 }
