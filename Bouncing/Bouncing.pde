@@ -32,6 +32,10 @@ void setup() {
   ellipseMode(CENTER);         // Draw a circle to begin with
   fill(255);
   ellipse(circleX, circleY, circleSize, circleSize);
+  
+ // Let the user know that it's working
+ println("The program has started");
+ 
 }
 
 
@@ -63,6 +67,7 @@ void mouseMoved(){
 // If the mouse is being dragged where the beginning click started over the mouse, move the circle
 void mouseDragged() {
   if(draggable) {
+    
     // Set the circle to the mouse pointer
     circleX = mouseX;
     circleY = mouseY;
@@ -73,8 +78,8 @@ void mouseDragged() {
 
 // This function will determine the new velocity value according to the location of the ball
 void acceleration() { 
-      // Delay the falling and print those values
-    println("Values: velocity", velocity, "accelerationConst", accelerationConst);
+    // Delay the falling and print those values
+    // println("Values: velocity", velocity, "accelerationConst", accelerationConst);
     
     fallDist = height - circleY;
     

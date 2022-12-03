@@ -1,1 +1,4 @@
-﻿  Controller.vcxproj -> C:\Users\lyall\OneDrive\Documents\Controller\ProcessingBallRepo\GravitySimulator\Controller\vs\Controller\x64\Debug\Controller.exe
+﻿  Controller.cpp
+  Controller.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+Controller.obj : warning LNK4248: unresolved typeref token (0100001A) for '_HIDP_PREPARSED_DATA'; image may not run
+  Controller.vcxproj -> C:\Users\lyall\OneDrive\Documents\Controller\ProcessingBallRepo\GravitySimulator\Controller\vs\Controller\x64\Debug\Controller.exe

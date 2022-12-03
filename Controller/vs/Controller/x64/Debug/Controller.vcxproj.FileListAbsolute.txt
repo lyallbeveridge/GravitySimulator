@@ -1,1 +1,3 @@
+C:\Users\lyall\OneDrive\Documents\Controller\ProcessingBallRepo\GravitySimulator\Controller\vs\Controller\x64\Debug\Controller.vcxproj.AssemblyReference.cache
+C:\Users\lyall\OneDrive\Documents\Controller\ProcessingBallRepo\GravitySimulator\Controller\vs\Controller\x64\Debug\Controller.vcxproj.SuggestedBindingRedirects.cache
 C:\Users\lyall\OneDrive\Documents\Controller\ProcessingBallRepo\GravitySimulator\Controller\vs\Controller\x64\Debug\Controller.exe

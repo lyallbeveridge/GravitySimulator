@@ -4,6 +4,13 @@
 #include <hidsdi.h>
 #include <hidpi.h>
 
+// UDP 
+#using <System.dll>
+using namespace System;
+using namespace System::Net::Sockets;
+using namespace System::Net;
+using namespace System::Text;
+
 void printRawInputData(LPARAM lParam)
 {
 	UINT size = 0;
@@ -63,6 +70,36 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPar
 
 int main()
 {
+	// Executes the processing java successfully in a different window, the TEXT being required as a macro to convert arguments to Windows strings
+	ShellExecute(NULL, TEXT("open"), TEXT("processing-java"), TEXT("--sketch=C:\\Users\\lyall\\OneDrive\\Documents\\Controller\\ProcessingBallRepo\\GravitySimulator\\Bouncing --run"), NULL, SW_SHOWNORMAL);
+	
+	// --- Create the UDP
+	
+	// UDP port number of the remote host
+	int PortNumber = 25000;
+	// Reference to UDP Client
+	UdpClient^ Client;
+	// Toggling write buffer
+	int Toggle = 0;
+	// reference to a buffer of uchar
+	array<unsigned char>^ WriteBuf;
+	array<unsigned char>^ ReadBuf;
+	// Strings to send
+	String^ StringPtrOFF, ^ StringPtrON;
+
+	//Allocate space to Buf on managed heap
+	WriteBuf = gcnew array<unsigned char>(128);
+	ReadBuf = gcnew array<unsigned char>(128);
+	// Create client object on heap and connect0
+	Client = gcnew UdpClient("127.0.0.1", PortNumber);
+
+	StringPtrOFF = gcnew String("HELLO WORLD");
+	// StringPtrON is set once
+	StringPtrON = gcnew String("OP85,170;");
+	WriteBuf = System::Text::Encoding::ASCII->GetBytes(StringPtrOFF);
+
+	
+	
 	// Create a window, as we need a window precedure to recieve raw input
 	WNDCLASS wnd = { 0 };
 	wnd.hInstance = GetModuleHandle(0);
@@ -89,7 +126,18 @@ int main()
 	while (GetMessage(&msg, NULL, 0, 0)) {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
+
+		try
+		{
+			//send the bytes
+			Client->Send(WriteBuf, WriteBuf->Length);
+		}
+		catch (IO::IOException^)
+		{
+			Console::WriteLine("Write buffer full");
+		}
 	}
 
+	Client->Close();
 	return 0;
 }
